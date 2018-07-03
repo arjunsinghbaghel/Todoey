@@ -9,7 +9,7 @@
 import UIKit
 
 class TodolistListViewController: UITableViewController {
-    let itemArray = ["Find Mike", "Buy Eggos", "Destory Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "Destory Demogorgon"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +30,6 @@ class TodolistListViewController: UITableViewController {
 
     //    MARK - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(itemArray[indexPath.row])
         
         
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
@@ -42,6 +41,25 @@ class TodolistListViewController: UITableViewController {
         
     }
     
-    
+//    MARK - Add New Items
+    @IBAction func addButtonPressed(_ sender: Any) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New Todey Item", message: "", preferredStyle: .alert)
+        
+        let  action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            
+            self.itemArray.append(textField.text! )
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (aleartTextField) in
+            aleartTextField.placeholder = "Create new item"
+            textField = aleartTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+    }
 }
 
